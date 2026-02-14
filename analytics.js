@@ -25,7 +25,7 @@ async function loadAnalytics() {
       data[key] = values[i] ? values[i].trim() : '';
     });
 
-    document.querySelectorAll('.number-value[data-stat]').forEach(el => {
+    document.querySelectorAll('.analytics-value[data-stat]').forEach(el => {
       const key = el.getAttribute('data-stat');
       if (data[key]) el.textContent = data[key];
     });
