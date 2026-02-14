@@ -8,7 +8,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
+  <style>
+    /* Analytics cards - inline to ensure they always apply */
+    .analytics-table { display: table !important; width: 100% !important; border-collapse: separate !important; border-spacing: 16px !important; margin-bottom: 24px !important; table-layout: fixed !important; }
+    .analytics-table tbody { display: table-row-group !important; }
+    .analytics-table tr { display: table-row !important; }
+    .analytics-table td { display: table-cell !important; }
+    .analytics-cell { background: #ffffff !important; padding: 24px !important; border-radius: 12px !important; border: 1px solid #d2d2d7 !important; box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important; vertical-align: top !important; min-height: 120px !important; }
+    .analytics-label { font-size: 0.7rem !important; font-weight: 600 !important; letter-spacing: 0.05em !important; color: #6b6560 !important; text-transform: uppercase !important; margin-bottom: 6px !important; }
+    .analytics-value { font-size: 1.75rem !important; font-weight: 700 !important; color: #2d2a26 !important; }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -67,6 +77,7 @@
       <h2>The reality</h2>
       <p class="numbers-intro">Nobody talks about how hard this is. Designing something people actually want, getting it through App Review, and then… actually finding your first users. Here's where I'm at with Chosen—no sugar-coating.</p>
       <table class="analytics-table" role="presentation">
+        <colgroup><col><col><col><col></colgroup>
         <tbody>
           <tr>
             <td class="analytics-cell">
