@@ -1,6 +1,6 @@
 /**
- * Fetches "The reality" stats from stats.csv.
- * Uses fallback values if fetch fails (e.g. cache, path issues).
+ * Loads stats from stats.csv and populates "The reality" section.
+ * Edit stats.csv to update numbers; values in HTML are fallbacks if fetch fails.
  */
 
 const FALLBACK = {
@@ -12,36 +12,8 @@ const FALLBACK = {
   proceeds_per_user: '$1.67',
   sessions_per_device: '3.43',
   crashes: '0',
-  months: '3',
   last_updated: '14 Feb 2026'
 };
-
-async function loadAnalytics() {
-  let data = { ...FALLBACK };
-
-  try {
-    const res = await fetch('stats.csv');
-    if (res.ok) {
-      const text = await res.text();
-      const lines = text.trim().split('\n');
-      if (lines.length >= 2) {
-        const headers = parseCSVLine(lines[0]);
-        const values = parseCSVLine(lines[1]);
-        headers.forEach((h, i) => {
-          const key = h.trim().toLowerCase().replace(/\s+/g, '_');
-          if (values[i]) data[key] = values[i].trim();
-        });
-      }
-    }
-  } catch (e) {
-    console.warn('Using fallback stats:', e.message);
-  }
-
-  document.querySelectorAll('.analytics-value[data-stat]').forEach(el => {
-    const key = el.getAttribute('data-stat');
-    if (data[key]) el.textContent = data[key];
-  });
-}
 
 function parseCSVLine(line) {
   const result = [];
@@ -62,4 +34,48 @@ function parseCSVLine(line) {
   return result;
 }
 
-loadAnalytics();
+function applyStats(data) {
+  document.querySelectorAll('.analytics-value[data-stat]').forEach(el => {
+    const key = el.getAttribute('data-stat');
+    if (data[key] !== undefined) el.textContent = data[key];
+  });
+}
+
+async function loadAnalytics() {
+  let data = { ...FALLBACK };
+
+  // Try absolute path first (works from any page), then relative
+  const urls = ['/stats.csv', 'stats.csv', './stats.csv'];
+  let loaded = false;
+
+  for (const url of urls) {
+    try {
+      const res = await fetch(url);
+      if (res.ok) {
+        const text = await res.text();
+        const lines = text.trim().split('\n').filter(l => l.length > 0);
+        if (lines.length >= 2) {
+          const headers = parseCSVLine(lines[0]);
+          const values = parseCSVLine(lines[1]);
+          headers.forEach((h, i) => {
+            const key = h.trim().toLowerCase().replace(/\s+/g, '_');
+            if (values[i] !== undefined) data[key] = String(values[i]).trim();
+          });
+          loaded = true;
+          break;
+        }
+      }
+    } catch (e) {
+      continue;
+    }
+  }
+
+  applyStats(data);
+}
+
+// Run when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadAnalytics);
+} else {
+  loadAnalytics();
+}

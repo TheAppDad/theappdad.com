@@ -13,13 +13,12 @@ Indie app developer website for The App Dad (Andrew Webster).
 Stats are loaded from `stats.csv`. To update:
 
 1. **From App Store Connect** → copy your latest numbers
-2. Edit `stats.csv` — replace the values in the second row (keep the header row as-is)
+2. Edit `stats.csv` — update the second row (keep the header row as-is). Update `last_updated` (e.g. `14 Feb 2026`)
 3. Commit and push — the site updates on deploy
 
-**CSV columns** (must match exactly):  
-`impressions`, `product_page_views`, `conversion_rate`, `downloads`, `proceeds`, `proceeds_per_user`, `sessions_per_device`, `crashes`, `months`, `last_updated`
+**CSV columns:** `impressions`, `product_page_views`, `conversion_rate`, `downloads`, `proceeds`, `proceeds_per_user`, `sessions_per_device`, `crashes`, `months`, `last_updated`
 
-Include `last_updated` (e.g. `14 Feb 2026`) so the site shows when you last refreshed the stats.
+If the fetch fails, the HTML has fallback values so numbers still display.
 
 **Apple Numbers:** Export your spreadsheet to CSV, copy the data row, paste into `stats.csv`.
 
