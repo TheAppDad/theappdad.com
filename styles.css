@@ -249,11 +249,24 @@ main {
 }
 
 .analytics-table {
+  display: table;
   width: 100%;
   border-collapse: separate;
   border-spacing: 16px;
   margin-bottom: 24px;
   table-layout: fixed;
+}
+
+.analytics-table tbody {
+  display: table-row-group;
+}
+
+.analytics-table tr {
+  display: table-row;
+}
+
+.analytics-table td {
+  display: table-cell;
 }
 
 .analytics-cell {
@@ -494,7 +507,7 @@ main {
 }
 
 /* Responsive — mobile */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   main {
     padding: 0 16px 32px;
   }
@@ -551,24 +564,76 @@ main {
   }
 }
 
-/* Analytics table — 2-column grid on mobile (overrides inline !important) */
-@media (max-width: 640px) {
+/* Analytics table — single column on small phones, 2 cols on larger mobile */
+@media (max-width: 480px) {
+  .numbers-section {
+    overflow-x: hidden;
+  }
+
   .numbers-grey-wrap {
     padding: 20px 16px;
   }
 
   .analytics-table {
-    display: block !important;
-    border-spacing: 0 !important;
-    margin-bottom: 0 !important;
+    display: block;
+    border-spacing: 0;
+    margin-bottom: 0;
   }
 
   .analytics-table tbody {
-    display: block !important;
+    display: block;
   }
 
   .analytics-table tr {
-    display: grid !important;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .analytics-table tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .analytics-table td {
+    display: block;
+    min-height: 0;
+  }
+
+  .analytics-cell {
+    padding: 20px;
+  }
+
+  .analytics-value {
+    font-size: 1.5rem;
+  }
+
+  .analytics-label {
+    font-size: 0.7rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .numbers-section {
+    overflow-x: hidden;
+  }
+
+  .numbers-grey-wrap {
+    padding: 24px 20px;
+  }
+
+  .analytics-table {
+    display: block;
+    border-spacing: 0;
+    margin-bottom: 0;
+  }
+
+  .analytics-table tbody {
+    display: block;
+  }
+
+  .analytics-table tr {
+    display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
     margin-bottom: 12px;
@@ -579,35 +644,35 @@ main {
   }
 
   .analytics-table td {
-    display: block !important;
-    min-height: 0 !important;
+    display: block;
+    min-height: 0;
   }
 
   .analytics-cell {
-    padding: 16px !important;
+    padding: 18px;
   }
 
   .analytics-value {
-    font-size: 1.35rem !important;
+    font-size: 1.4rem;
   }
 
   .analytics-label {
-    font-size: 0.6rem !important;
+    font-size: 0.65rem;
   }
 }
 
-/* Analytics table — reduce spacing on medium screens */
-@media (min-width: 641px) and (max-width: 700px) {
+/* Analytics table — reduce spacing on smaller desktop */
+@media (min-width: 769px) and (max-width: 900px) {
   .analytics-table {
-    border-spacing: 8px;
+    border-spacing: 10px;
   }
 
   .analytics-cell {
-    padding: 16px;
+    padding: 18px;
   }
 
   .analytics-value {
-    font-size: 1.4rem !important;
+    font-size: 1.5rem;
   }
 
   .analytics-label {
