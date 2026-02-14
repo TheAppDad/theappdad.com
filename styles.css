@@ -235,21 +235,20 @@ main {
 
 .analytics-table {
   width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  border: 1px solid #d2d2d7;
-  border-radius: 12px;
-  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 16px;
   margin-bottom: 24px;
-  background: #d2d2d7;
+  table-layout: fixed;
 }
 
 .analytics-cell {
-  width: 25%;
-  background: #fff;
-  padding: 20px;
-  border: 1px solid #d2d2d7;
+  background: #ffffff;
+  padding: 24px;
   vertical-align: top;
+  border-radius: 12px;
+  border: 1px solid #e5e5e7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  min-height: 120px;
 }
 
 .analytics-label {
