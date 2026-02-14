@@ -492,23 +492,81 @@ main {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Responsive */
+/* Responsive — mobile */
 @media (max-width: 640px) {
+  main {
+    padding: 0 16px 32px;
+  }
+
+  .hero {
+    padding: 48px 0 40px;
+  }
+
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .hero-tagline {
+    font-size: 1rem;
+  }
+
   .main-nav {
-    gap: 16px;
+    gap: 12px;
   }
-  
+
   .main-nav a {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
-  
+
   .app-card-inner {
-    padding: 24px;
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
+
+  .app-icon-wrap {
+    margin: 0 auto;
+  }
+
   .about-content {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
+
+  .app-store-button {
+    padding: 14px 24px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Analytics table — stack to 2 cols on small screens */
+@media (max-width: 700px) {
+  .analytics-table {
+    border-spacing: 8px;
+  }
+
+  .analytics-cell {
+    padding: 16px;
+  }
+
+  .analytics-value {
+    font-size: 1.4rem !important;
+  }
+
+  .analytics-label {
+    font-size: 0.65rem;
+  }
+}
+
+/* Prevent horizontal scroll */
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
 }
