@@ -17,7 +17,9 @@ Stats are loaded from `stats.csv`. To update:
 3. Commit and push — the site updates on deploy
 
 **CSV columns** (must match exactly):  
-`impressions`, `product_page_views`, `conversion_rate`, `downloads`, `proceeds`, `proceeds_per_user`, `sessions_per_device`, `crashes`, `months`
+`impressions`, `product_page_views`, `conversion_rate`, `downloads`, `proceeds`, `proceeds_per_user`, `sessions_per_device`, `crashes`, `months`, `last_updated`
+
+Include `last_updated` (e.g. `14 Feb 2026`) so the site shows when you last refreshed the stats.
 
 **Apple Numbers:** Export your spreadsheet to CSV, copy the data row, paste into `stats.csv`.
 

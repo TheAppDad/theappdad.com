@@ -288,7 +288,14 @@ main {
 .numbers-extra {
   font-size: 0.9rem;
   color: var(--color-text-muted);
+  margin: 0 0 8px;
+}
+
+.numbers-meta {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
   margin: 0 0 16px;
+  opacity: 0.9;
 }
 
 .numbers-extra span[data-stat] {

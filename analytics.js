@@ -12,7 +12,8 @@ const FALLBACK = {
   proceeds_per_user: '$1.67',
   sessions_per_device: '3.43',
   crashes: '0',
-  months: '3'
+  months: '3',
+  last_updated: '14 Feb 2026'
 };
 
 async function loadAnalytics() {
