@@ -101,10 +101,18 @@ main {
 .hero-tagline {
   font-size: 1.2rem;
   color: var(--color-text-muted);
-  margin: 0;
+  margin: 0 auto 32px;
   max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
+}
+
+.hero-logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border: 3px solid var(--color-border);
 }
 
 /* Apps section */
