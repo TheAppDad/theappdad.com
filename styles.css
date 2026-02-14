@@ -321,12 +321,14 @@ main {
   opacity: 0.9;
 }
 
-@media (max-width: 768px) {
-  .numbers-meta-break {
-    display: block;
-    margin-top: 4px;
+/* Hide line break on desktop so it stays on one line */
+@media (min-width: 769px) {
+  .numbers-meta-br {
+    display: none;
   }
 }
+
+/* Show line break on mobile — br is visible by default */
 
 .numbers-extra span[data-stat] {
   color: var(--color-text);
