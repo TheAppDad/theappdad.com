@@ -215,11 +215,10 @@ main {
 /* The reality — App Store Connect style */
 .numbers-section {
   padding: 48px 0;
-  background: var(--color-bg-alt);
-  border-radius: 16px;
   margin: 24px 0;
 }
 
+.numbers-title,
 .numbers-section h2 {
   font-size: 1.5rem;
   font-weight: 600;
@@ -229,8 +228,14 @@ main {
 
 .numbers-intro {
   color: var(--color-text-muted);
-  margin: 0 0 32px;
+  margin: 0 0 24px;
   max-width: 600px;
+}
+
+.numbers-grey-wrap {
+  background: var(--color-bg-alt);
+  padding: 32px;
+  border-radius: 16px;
 }
 
 .analytics-table {

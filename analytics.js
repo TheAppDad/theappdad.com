@@ -1,37 +1,45 @@
 /**
- * Fetches "The reality" stats from stats.csv (in this repo).
- *
- * To update: Edit stats.csv with your latest numbers from App Store Connect.
- * You can export from Apple Numbers to CSV, or edit the file directly.
- *
- * CSV format (first row = headers, second row = values):
- * impressions,product_page_views,conversion_rate,downloads,proceeds,proceeds_per_user,sessions_per_device,crashes,months
- * 182,106,39.2%,20,$5,$1.67,3.43,0,3
+ * Fetches "The reality" stats from stats.csv.
+ * Uses fallback values if fetch fails (e.g. cache, path issues).
  */
 
+const FALLBACK = {
+  impressions: '182',
+  product_page_views: '106',
+  conversion_rate: '39.2%',
+  downloads: '20',
+  proceeds: '$5',
+  proceeds_per_user: '$1.67',
+  sessions_per_device: '3.43',
+  crashes: '0',
+  months: '3'
+};
+
 async function loadAnalytics() {
+  let data = { ...FALLBACK };
+
   try {
-    const res = await fetch('/stats.csv');
-    if (!res.ok) return;
-    const text = await res.text();
-    const lines = text.trim().split('\n');
-    if (lines.length < 2) return;
-
-    const headers = parseCSVLine(lines[0]);
-    const values = parseCSVLine(lines[1]);
-    const data = {};
-    headers.forEach((h, i) => {
-      const key = h.trim().toLowerCase().replace(/\s+/g, '_');
-      data[key] = values[i] ? values[i].trim() : '';
-    });
-
-    document.querySelectorAll('.analytics-value[data-stat]').forEach(el => {
-      const key = el.getAttribute('data-stat');
-      if (data[key]) el.textContent = data[key];
-    });
+    const res = await fetch('stats.csv');
+    if (res.ok) {
+      const text = await res.text();
+      const lines = text.trim().split('\n');
+      if (lines.length >= 2) {
+        const headers = parseCSVLine(lines[0]);
+        const values = parseCSVLine(lines[1]);
+        headers.forEach((h, i) => {
+          const key = h.trim().toLowerCase().replace(/\s+/g, '_');
+          if (values[i]) data[key] = values[i].trim();
+        });
+      }
+    }
   } catch (e) {
-    console.warn('Could not load analytics:', e.message);
+    console.warn('Using fallback stats:', e.message);
   }
+
+  document.querySelectorAll('.analytics-value[data-stat]').forEach(el => {
+    const key = el.getAttribute('data-stat');
+    if (data[key]) el.textContent = data[key];
+  });
 }
 
 function parseCSVLine(line) {
