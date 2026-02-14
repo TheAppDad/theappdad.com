@@ -212,6 +212,68 @@ main {
   text-decoration: underline;
 }
 
+/* The reality (honest numbers) */
+.numbers-section {
+  padding: 48px 0;
+  background: var(--color-bg-alt);
+  border-radius: 16px;
+  margin: 24px 0;
+}
+
+.numbers-section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 16px;
+  color: var(--color-text);
+}
+
+.numbers-intro {
+  color: var(--color-text-muted);
+  margin: 0 0 32px;
+  max-width: 600px;
+}
+
+.numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.number-card {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.number-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 4px;
+}
+
+.number-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.number-note {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 8px 0 0;
+}
+
+.numbers-reflection {
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin: 0;
+}
+
 /* About */
 .about-section {
   padding: 48px 0;
