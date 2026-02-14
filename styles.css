@@ -197,6 +197,21 @@ main {
   background: var(--color-accent-hover);
 }
 
+.app-legal-links {
+  margin: 16px 0 0;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.app-legal-links a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.app-legal-links a:hover {
+  text-decoration: underline;
+}
+
 /* About */
 .about-section {
   padding: 48px 0;
@@ -226,23 +241,6 @@ main {
 .about-content p {
   margin: 0 0 12px;
   color: var(--color-text-muted);
-}
-
-/* Legal links */
-.legal-links-section {
-  padding: 24px 0;
-  text-align: center;
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
-}
-
-.legal-links-section a {
-  color: var(--color-accent);
-  text-decoration: none;
-}
-
-.legal-links-section a:hover {
-  text-decoration: underline;
 }
 
 /* Footer */
@@ -323,6 +321,15 @@ main {
 .page-content ul {
   padding-left: 20px;
   margin-bottom: 16px;
+}
+
+.page-content a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.page-content a:hover {
+  text-decoration: underline;
 }
 
 .last-updated {
