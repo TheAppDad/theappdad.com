@@ -36,6 +36,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+  padding-top: env(safe-area-inset-top, 0);
 }
 
 .header-inner {
@@ -498,6 +499,13 @@ main {
     padding: 0 16px 32px;
   }
 
+  .apps-section h2,
+  .numbers-title,
+  .numbers-section h2,
+  .about-section h2 {
+    text-align: center;
+  }
+
   .hero {
     padding: 48px 0 40px;
   }
@@ -543,8 +551,53 @@ main {
   }
 }
 
-/* Analytics table — stack to 2 cols on small screens */
-@media (max-width: 700px) {
+/* Analytics table — 2-column grid on mobile (overrides inline !important) */
+@media (max-width: 640px) {
+  .numbers-grey-wrap {
+    padding: 20px 16px;
+  }
+
+  .analytics-table {
+    display: block !important;
+    border-spacing: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .analytics-table tbody {
+    display: block !important;
+  }
+
+  .analytics-table tr {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .analytics-table tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .analytics-table td {
+    display: block !important;
+    min-height: 0 !important;
+  }
+
+  .analytics-cell {
+    padding: 16px !important;
+  }
+
+  .analytics-value {
+    font-size: 1.35rem !important;
+  }
+
+  .analytics-label {
+    font-size: 0.6rem !important;
+  }
+}
+
+/* Analytics table — reduce spacing on medium screens */
+@media (min-width: 641px) and (max-width: 700px) {
   .analytics-table {
     border-spacing: 8px;
   }
