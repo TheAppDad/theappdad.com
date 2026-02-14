@@ -321,6 +321,13 @@ main {
   opacity: 0.9;
 }
 
+@media (max-width: 768px) {
+  .numbers-meta-break {
+    display: block;
+    margin-top: 4px;
+  }
+}
+
 .numbers-extra span[data-stat] {
   color: var(--color-text);
   font-weight: 600;
