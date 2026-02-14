@@ -38,8 +38,12 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  width: 100%;
+  z-index: 9999;
   padding-top: env(safe-area-inset-top, 0);
+  /* Force own layer to fix iOS Safari fixed-position bugs */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .header-inner {
@@ -696,11 +700,7 @@ main {
   }
 }
 
-/* Prevent horizontal scroll */
-html {
-  overflow-x: hidden;
-}
-
-body {
+/* Prevent horizontal scroll - avoid on html/body as it breaks position:fixed on iOS */
+main {
   overflow-x: hidden;
 }
