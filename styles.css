@@ -528,6 +528,10 @@ main {
     text-align: center;
   }
 
+  .numbers-intro {
+    text-align: center;
+  }
+
   .hero {
     padding: 48px 0 40px;
   }
