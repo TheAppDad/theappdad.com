@@ -156,14 +156,16 @@ async function loadAnalytics() {
     }
     applyStats(data);
     setPeriodSelect(period);
+    var dateEl = document.getElementById('stats-date-range');
+    if (dateEl && data.date_range) dateEl.textContent = data.date_range;
   }
 
   const select = document.getElementById('stats-period');
   if (select) {
-    select.addEventListener('change', () => showPeriod(select.value));
+    select.addEventListener('change', function() { showPeriod(this.value); });
   }
 
-  showPeriod('lifetime');
+  showPeriod(select ? select.value : 'lifetime');
 }
 
 if (document.readyState === 'loading') {
