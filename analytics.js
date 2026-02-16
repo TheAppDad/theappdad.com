@@ -1,18 +1,19 @@
 /**
  * Loads stats from stats.csv and populates "The reality" section.
  * Edit stats.csv to update numbers; values in HTML are fallbacks if fetch fails.
+ * Supports period presets: 7d, 30d, 90d, last_week, last_month, ytd, lifetime.
  */
 
 const FALLBACK = {
-  impressions: '182',
-  product_page_views: '106',
-  conversion_rate: '39.2%',
-  downloads: '20',
+  impressions: '270',
+  product_page_views: '125',
+  conversion_rate: '21.2%',
+  downloads: '21',
   proceeds: '$5',
   proceeds_per_user: '$1.67',
-  sessions_per_device: '3.43',
+  sessions_per_device: '4.38',
   crashes: '0',
-  last_updated: '14 Feb 2026'
+  last_updated: '15 Feb 2026'
 };
 
 function parseCSVLine(line) {
@@ -34,6 +35,15 @@ function parseCSVLine(line) {
   return result;
 }
 
+function rowToData(headers, values) {
+  const data = {};
+  headers.forEach((h, i) => {
+    const key = h.trim().toLowerCase().replace(/\s+/g, '_');
+    if (values[i] !== undefined) data[key] = String(values[i]).trim();
+  });
+  return data;
+}
+
 function applyStats(data) {
   document.querySelectorAll('.analytics-value[data-stat]').forEach(el => {
     const key = el.getAttribute('data-stat');
@@ -41,10 +51,16 @@ function applyStats(data) {
   });
 }
 
-async function loadAnalytics() {
-  let data = { ...FALLBACK };
+function setPeriodActive(period) {
+  document.querySelectorAll('.period-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-period') === period);
+  });
+}
 
-  // Try absolute path first (works from any page), then relative
+async function loadAnalytics() {
+  let dataByPeriod = {};
+  let fallbackData = { ...FALLBACK };
+
   const urls = ['/stats.csv', 'stats.csv', './stats.csv'];
   let loaded = false;
 
@@ -56,11 +72,16 @@ async function loadAnalytics() {
         const lines = text.trim().split('\n').filter(l => l.length > 0);
         if (lines.length >= 2) {
           const headers = parseCSVLine(lines[0]);
-          const values = parseCSVLine(lines[1]);
-          headers.forEach((h, i) => {
-            const key = h.trim().toLowerCase().replace(/\s+/g, '_');
-            if (values[i] !== undefined) data[key] = String(values[i]).trim();
-          });
+          const periodIdx = headers.findIndex(h => h.trim().toLowerCase() === 'period');
+
+          for (let i = 1; i < lines.length; i++) {
+            const values = parseCSVLine(lines[i]);
+            const row = rowToData(headers, values);
+            const period = (periodIdx >= 0 && values[periodIdx]) ? String(values[periodIdx]).trim().toLowerCase() : 'lifetime';
+            dataByPeriod[period] = row;
+          }
+
+          fallbackData = dataByPeriod['lifetime'] || (lines.length >= 2 ? rowToData(headers, parseCSVLine(lines[lines.length - 1])) : FALLBACK);
           loaded = true;
           break;
         }
@@ -70,10 +91,25 @@ async function loadAnalytics() {
     }
   }
 
-  applyStats(data);
+  if (!loaded) {
+    dataByPeriod['lifetime'] = FALLBACK;
+  }
+
+  function showPeriod(period) {
+    const data = dataByPeriod[period] || dataByPeriod['lifetime'] || fallbackData;
+    applyStats(data);
+    setPeriodActive(period);
+  }
+
+  document.querySelectorAll('.period-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      showPeriod(btn.getAttribute('data-period'));
+    });
+  });
+
+  showPeriod('lifetime');
 }
 
-// Run when DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', loadAnalytics);
 } else {

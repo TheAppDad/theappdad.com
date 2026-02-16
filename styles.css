@@ -255,6 +255,50 @@ main {
   border-radius: 16px;
 }
 
+.numbers-period-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.period-btn {
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  color: var(--color-text-muted);
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+}
+
+.period-btn:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
+
+.period-btn.active {
+  color: #fff;
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+@media (max-width: 768px) {
+  .numbers-period-selector {
+    gap: 6px;
+    margin-bottom: 16px;
+    justify-content: center;
+  }
+
+  .period-btn {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+}
+
 .analytics-table {
   display: table;
   width: 100%;
