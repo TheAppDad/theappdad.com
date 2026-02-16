@@ -46,19 +46,27 @@ function formatShortDate(d, leadingZeroDay) {
 function computeDateRange(lastUpdated, period) {
   const end = parseDate(lastUpdated);
   if (!end) return lastUpdated;
-  const start = new Date(end);
-  if (period === '7d') start.setDate(start.getDate() - 6);
-  else if (period === '30d') start.setDate(start.getDate() - 29);
-  else if (period === '90d') start.setDate(start.getDate() - 89);
-  else if (period === 'last_week') start.setDate(start.getDate() - 6);
-  else if (period === 'last_month') start.setDate(start.getDate() - 29);
-  else if (period === 'ytd') {
-    start.setMonth(0, 1);
+  const p = String(period || '').trim().toLowerCase();
+  let start;
+
+  if (p === 'ytd') {
+    start = new Date(end.getFullYear(), 0, 1); // 1st Jan
     return formatShortDate(start, true) + ' – ' + formatShortDate(end, false);
-  } else if (period === 'lifetime') {
+  }
+  if (p === 'lifetime') {
     const release = parseDate(RELEASE_DATE);
     return release ? formatShortDate(release, false) + ' – ' + formatShortDate(end, false) : formatShortDate(end, false);
   }
+
+  start = new Date(end);
+  const msPerDay = 24 * 60 * 60 * 1000;
+  if (p === '7d') start.setTime(end.getTime() - 6 * msPerDay);
+  else if (p === '30d') start.setTime(end.getTime() - 29 * msPerDay);
+  else if (p === '90d') start.setTime(end.getTime() - 89 * msPerDay);
+  else if (p === 'last_week') start.setTime(end.getTime() - 6 * msPerDay);
+  else if (p === 'last_month') start.setTime(end.getTime() - 29 * msPerDay);
+  else return formatShortDate(end, false);
+
   return formatShortDate(start, false) + ' – ' + formatShortDate(end, false);
 }
 
