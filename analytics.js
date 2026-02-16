@@ -168,22 +168,36 @@ async function loadAnalytics() {
   showPeriod(select ? select.value : 'lifetime');
 }
 
+const RATING_FALLBACK = { rating: 5, count: 3 };
+
 async function loadAppRating() {
   const dataEl = document.getElementById('app-rating-data');
   if (!dataEl) return;
+
+  function showRating(rating, count) {
+    const stars = '★'.repeat(Math.round(rating)) + '☆'.repeat(5 - Math.round(rating));
+    dataEl.innerHTML = '<span class="app-rating-stars">' + stars + '</span> ' + (count > 0 ? rating.toFixed(1) + ' (' + count + ' rating' + (count === 1 ? '' : 's') + ')' : '—');
+  }
+
   try {
-    const res = await fetch('/api/rating');
-    const data = await res.json();
+    const ctrl = new AbortController();
+    const timeout = setTimeout(() => ctrl.abort(), 5000);
+    const res = await fetch('/api/rating', { signal: ctrl.signal });
+    clearTimeout(timeout);
+    var data;
+    try {
+      data = await res.json();
+    } catch (_) {
+      showRating(RATING_FALLBACK.rating, RATING_FALLBACK.count);
+      return;
+    }
     if (res.ok && data.rating !== undefined) {
-      const rating = data.rating;
-      const count = data.count || 0;
-      const stars = '★'.repeat(Math.round(rating)) + '☆'.repeat(5 - Math.round(rating));
-      dataEl.innerHTML = '<span class="app-rating-stars">' + stars + '</span> ' + (count > 0 ? rating.toFixed(1) + ' (' + count + ' rating' + (count === 1 ? '' : 's') + ')' : '—');
+      showRating(data.rating, data.count || 0);
     } else {
-      dataEl.textContent = '—';
+      showRating(RATING_FALLBACK.rating, RATING_FALLBACK.count);
     }
   } catch (e) {
-    dataEl.textContent = '—';
+    showRating(RATING_FALLBACK.rating, RATING_FALLBACK.count);
   }
 }
 
