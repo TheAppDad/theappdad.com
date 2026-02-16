@@ -13,11 +13,12 @@ const FALLBACK = {
   proceeds_per_user: '$1.67',
   sessions_per_device: '4.38',
   crashes: '0',
-  last_updated: '15 Feb 2026',
-  date_range: '10 Feb – 15 Feb 2026'
+  last_updated: '16 Feb 2026',
+  date_range: '10 Feb – 16 Feb 2026'
 };
 
 const MONTHS = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
+const RELEASE_DATE = '10 Feb 2026';
 const DAYS = ['st', 'nd', 'rd', 'th'];
 
 function parseDate(s) {
@@ -34,11 +35,12 @@ function formatOrdinal(n) {
   return n + suffix;
 }
 
-function formatShortDate(d) {
+function formatShortDate(d, leadingZeroDay) {
   const day = d.getDate();
   const month = d.toLocaleString('en', { month: 'short' });
   const year = d.getFullYear();
-  return formatOrdinal(day) + ' ' + month + ' ' + year;
+  const dayStr = leadingZeroDay && day <= 9 ? '0' + day : formatOrdinal(day);
+  return dayStr + ' ' + month + ' ' + year;
 }
 
 function computeDateRange(lastUpdated, period) {
@@ -50,9 +52,14 @@ function computeDateRange(lastUpdated, period) {
   else if (period === '90d') start.setDate(start.getDate() - 89);
   else if (period === 'last_week') start.setDate(start.getDate() - 6);
   else if (period === 'last_month') start.setDate(start.getDate() - 29);
-  else if (period === 'ytd') start.setMonth(0, 1);
-  else return lastUpdated;
-  return formatShortDate(start) + ' – ' + formatShortDate(end);
+  else if (period === 'ytd') {
+    start.setMonth(0, 1);
+    return formatShortDate(start, true) + ' – ' + formatShortDate(end, false);
+  } else if (period === 'lifetime') {
+    const release = parseDate(RELEASE_DATE);
+    return release ? formatShortDate(release, false) + ' – ' + formatShortDate(end, false) : formatShortDate(end, false);
+  }
+  return formatShortDate(start, false) + ' – ' + formatShortDate(end, false);
 }
 
 function parseCSVLine(line) {
@@ -136,7 +143,7 @@ async function loadAnalytics() {
   function showPeriod(period) {
     let data = dataByPeriod[period] || dataByPeriod['lifetime'] || fallbackData;
     data = { ...data };
-    if (!data.date_range && data.last_updated) {
+    if (data.last_updated) {
       data.date_range = computeDateRange(data.last_updated, period);
     }
     applyStats(data);
