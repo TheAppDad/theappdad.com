@@ -297,9 +297,10 @@ main {
   font-weight: 400;
 }
 
-.period-date .analytics-value {
+.period-date [data-stat],
+.numbers-meta [data-stat] {
   font-size: 0.85rem !important;
-  font-weight: 400;
+  font-weight: 400 !important;
   color: inherit;
 }
 

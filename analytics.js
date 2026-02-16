@@ -91,7 +91,7 @@ function rowToData(headers, values) {
 }
 
 function applyStats(data) {
-  document.querySelectorAll('.analytics-value[data-stat]').forEach(el => {
+  document.querySelectorAll('[data-stat]').forEach(el => {
     const key = el.getAttribute('data-stat');
     if (data[key] !== undefined) el.textContent = data[key];
   });
