@@ -39,7 +39,8 @@ function formatShortDate(d, leadingZeroDay) {
   const day = d.getDate();
   const month = d.toLocaleString('en', { month: 'short' });
   const year = d.getFullYear();
-  const dayStr = leadingZeroDay && day <= 9 ? '0' + day : formatOrdinal(day);
+  const suffix = (day >= 11 && day <= 13) ? 'th' : (DAYS[day % 10] || 'th');
+  const dayStr = leadingZeroDay && day <= 9 ? '0' + day + suffix : formatOrdinal(day);
   return dayStr + ' ' + month + ' ' + year;
 }
 
