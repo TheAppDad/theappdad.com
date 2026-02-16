@@ -630,6 +630,28 @@ main {
   .main-nav a {
     font-size: 0.8rem;
   }
+}
+
+/* Header — fit on smaller iPhones (e.g. regular iPhone, SE) */
+@media (max-width: 430px) {
+  .header-inner {
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 1rem;
+    flex-shrink: 1;
+  }
+
+  .main-nav {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .main-nav a {
+    font-size: 0.75rem;
+  }
 
   .app-card-inner {
     padding: 20px;
