@@ -19,7 +19,15 @@ const FALLBACK = {
 
 const MONTHS = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
 const RELEASE_DATE = '10 Feb 2026';
-const DAYS = ['st', 'nd', 'rd', 'th'];
+function getOrdinalSuffix(n) {
+  if (n >= 11 && n <= 13) return 'th';
+  switch (n % 10) {
+    case 1: return 'st';
+    case 2: return 'nd';
+    case 3: return 'rd';
+    default: return 'th';
+  }
+}
 
 function parseDate(s) {
   const m = String(s).match(/^(\d{1,2})\s+(\w{3})\s+(\d{4})$/);
@@ -30,16 +38,14 @@ function parseDate(s) {
 }
 
 function formatOrdinal(n) {
-  const d = n % 10;
-  const suffix = (n >= 11 && n <= 13) ? 'th' : (DAYS[d] || 'th');
-  return n + suffix;
+  return n + getOrdinalSuffix(n);
 }
 
 function formatShortDate(d, leadingZeroDay) {
   const day = d.getDate();
   const month = d.toLocaleString('en', { month: 'short' });
   const year = d.getFullYear();
-  const suffix = (day >= 11 && day <= 13) ? 'th' : (DAYS[day % 10] || 'th');
+  const suffix = getOrdinalSuffix(day);
   const dayStr = leadingZeroDay && day <= 9 ? '0' + day + suffix : formatOrdinal(day);
   return dayStr + ' ' + month + ' ' + year;
 }
