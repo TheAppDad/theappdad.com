@@ -51,10 +51,9 @@ function applyStats(data) {
   });
 }
 
-function setPeriodActive(period) {
-  document.querySelectorAll('.period-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.getAttribute('data-period') === period);
-  });
+function setPeriodSelect(period) {
+  const select = document.getElementById('stats-period');
+  if (select) select.value = period;
 }
 
 async function loadAnalytics() {
@@ -98,14 +97,13 @@ async function loadAnalytics() {
   function showPeriod(period) {
     const data = dataByPeriod[period] || dataByPeriod['lifetime'] || fallbackData;
     applyStats(data);
-    setPeriodActive(period);
+    setPeriodSelect(period);
   }
 
-  document.querySelectorAll('.period-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      showPeriod(btn.getAttribute('data-period'));
-    });
-  });
+  const select = document.getElementById('stats-period');
+  if (select) {
+    select.addEventListener('change', () => showPeriod(select.value));
+  }
 
   showPeriod('lifetime');
 }

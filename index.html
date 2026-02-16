@@ -78,14 +78,17 @@
       <h2 class="numbers-title">The reality</h2>
       <p class="numbers-intro">Nobody talks about how hard this is. Designing something people actually want, getting it through App Review, and then… actually finding your first users. Here's where I'm at with Chosen—no sugar-coating.</p>
       <div class="numbers-grey-wrap">
-      <div class="numbers-period-selector" role="group" aria-label="Stats period">
-        <button type="button" class="period-btn" data-period="7d">7 days</button>
-        <button type="button" class="period-btn" data-period="30d">30 days</button>
-        <button type="button" class="period-btn" data-period="90d">90 days</button>
-        <button type="button" class="period-btn" data-period="last_week">Last week</button>
-        <button type="button" class="period-btn" data-period="last_month">Last month</button>
-        <button type="button" class="period-btn" data-period="ytd">Year to date</button>
-        <button type="button" class="period-btn active" data-period="lifetime">Lifetime</button>
+      <div class="numbers-period-selector">
+        <label for="stats-period" class="period-label">View stats for</label>
+        <select id="stats-period" class="period-select" aria-label="Stats period">
+          <option value="7d">7 days</option>
+          <option value="30d">30 days</option>
+          <option value="90d">90 days</option>
+          <option value="last_week">Last week</option>
+          <option value="last_month">Last month</option>
+          <option value="ytd">Year to date</option>
+          <option value="lifetime" selected>Lifetime</option>
+        </select>
       </div>
       <table class="analytics-table" role="presentation">
         <colgroup><col><col><col><col></colgroup>
