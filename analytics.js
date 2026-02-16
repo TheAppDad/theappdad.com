@@ -169,6 +169,7 @@ async function loadAnalytics() {
 }
 
 const RATING_FALLBACK = { rating: 5, count: 3 };
+const APP_STORE_ID = '6757462559';
 
 async function loadAppRating() {
   const dataEl = document.getElementById('app-rating-data');
@@ -177,6 +178,10 @@ async function loadAppRating() {
   function showRating(rating, count) {
     const stars = '★'.repeat(Math.round(rating)) + '☆'.repeat(5 - Math.round(rating));
     dataEl.innerHTML = '<span class="app-rating-stars">' + stars + '</span> ' + (count > 0 ? rating.toFixed(1) + ' (' + count + ' rating' + (count === 1 ? '' : 's') + ')' : '—');
+  }
+
+  function useFallback() {
+    showRating(RATING_FALLBACK.rating, RATING_FALLBACK.count);
   }
 
   try {
@@ -188,17 +193,40 @@ async function loadAppRating() {
     try {
       data = await res.json();
     } catch (_) {
-      showRating(RATING_FALLBACK.rating, RATING_FALLBACK.count);
+      useFallback();
       return;
     }
     if (res.ok && data.rating !== undefined) {
       showRating(data.rating, data.count || 0);
-    } else {
-      showRating(RATING_FALLBACK.rating, RATING_FALLBACK.count);
+      return;
     }
   } catch (e) {
-    showRating(RATING_FALLBACK.rating, RATING_FALLBACK.count);
+    /* API failed, try JSONP fallback */
   }
+
+  try {
+    const jsonp = await new Promise(function(resolve, reject) {
+      const cb = 'itunes_' + Date.now();
+      window[cb] = function(obj) {
+        delete window[cb];
+        document.getElementById('itunes-script')?.remove();
+        resolve(obj && obj.results && obj.results[0] ? obj.results[0] : null);
+      };
+      const s = document.createElement('script');
+      s.id = 'itunes-script';
+      s.src = 'https://itunes.apple.com/lookup?id=' + APP_STORE_ID + '&country=gb&callback=' + cb;
+      s.onerror = function() {
+        delete window[cb];
+        reject(new Error('JSONP failed'));
+      };
+      document.head.appendChild(s);
+    });
+    if (jsonp && (jsonp.averageUserRating !== undefined || jsonp.userRatingCount !== undefined)) {
+      showRating(jsonp.averageUserRating || 0, jsonp.userRatingCount || 0);
+      return;
+    }
+  } catch (_) { /* JSONP failed */ }
+  useFallback();
 }
 
 if (document.readyState === 'loading') {
