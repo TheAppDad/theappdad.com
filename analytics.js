@@ -13,8 +13,47 @@ const FALLBACK = {
   proceeds_per_user: '$1.67',
   sessions_per_device: '4.38',
   crashes: '0',
-  last_updated: '15 Feb 2026'
+  last_updated: '15 Feb 2026',
+  date_range: '10 Feb – 15 Feb 2026'
 };
+
+const MONTHS = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
+const DAYS = ['st', 'nd', 'rd', 'th'];
+
+function parseDate(s) {
+  const m = String(s).match(/^(\d{1,2})\s+(\w{3})\s+(\d{4})$/);
+  if (!m) return null;
+  const month = MONTHS[m[2]];
+  if (month === undefined) return null;
+  return new Date(parseInt(m[3], 10), month, parseInt(m[1], 10));
+}
+
+function formatOrdinal(n) {
+  const d = n % 10;
+  const suffix = (n >= 11 && n <= 13) ? 'th' : (DAYS[d] || 'th');
+  return n + suffix;
+}
+
+function formatShortDate(d) {
+  const day = d.getDate();
+  const month = d.toLocaleString('en', { month: 'short' });
+  const year = d.getFullYear();
+  return formatOrdinal(day) + ' ' + month + ' ' + year;
+}
+
+function computeDateRange(lastUpdated, period) {
+  const end = parseDate(lastUpdated);
+  if (!end) return lastUpdated;
+  const start = new Date(end);
+  if (period === '7d') start.setDate(start.getDate() - 6);
+  else if (period === '30d') start.setDate(start.getDate() - 29);
+  else if (period === '90d') start.setDate(start.getDate() - 89);
+  else if (period === 'last_week') start.setDate(start.getDate() - 6);
+  else if (period === 'last_month') start.setDate(start.getDate() - 29);
+  else if (period === 'ytd') start.setMonth(0, 1);
+  else return lastUpdated;
+  return formatShortDate(start) + ' – ' + formatShortDate(end);
+}
 
 function parseCSVLine(line) {
   const result = [];
@@ -95,7 +134,11 @@ async function loadAnalytics() {
   }
 
   function showPeriod(period) {
-    const data = dataByPeriod[period] || dataByPeriod['lifetime'] || fallbackData;
+    let data = dataByPeriod[period] || dataByPeriod['lifetime'] || fallbackData;
+    data = { ...data };
+    if (!data.date_range && data.last_updated) {
+      data.date_range = computeDateRange(data.last_updated, period);
+    }
     applyStats(data);
     setPeriodSelect(period);
   }
