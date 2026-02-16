@@ -170,9 +170,8 @@ async function loadAnalytics() {
 
 async function loadAppRating() {
   const el = document.getElementById('app-rating');
-  const textEl = document.getElementById('app-rating-text');
-  const starsEl = document.querySelector('.app-rating-stars');
-  if (!el || !textEl) return;
+  const dataEl = document.getElementById('app-rating-data');
+  if (!el || !dataEl) return;
   try {
     const res = await fetch('https://itunes.apple.com/lookup?id=6757462559&country=gb');
     const data = await res.json();
@@ -181,15 +180,12 @@ async function loadAppRating() {
       const rating = r.averageUserRating;
       const count = r.userRatingCount || 0;
       const stars = '★'.repeat(Math.round(rating)) + '☆'.repeat(5 - Math.round(rating));
-      if (starsEl) starsEl.textContent = stars;
-      textEl.textContent = count > 0 ? rating.toFixed(1) + ' (' + count + ' rating' + (count === 1 ? '' : 's') + ')' : 'No ratings yet';
+      dataEl.innerHTML = '<span class="app-rating-stars">' + stars + '</span> ' + (count > 0 ? rating.toFixed(1) + ' (' + count + ' rating' + (count === 1 ? '' : 's') + ')' : 'No ratings yet');
     } else {
-      textEl.textContent = '';
-      if (starsEl) starsEl.textContent = '';
+      dataEl.textContent = '—';
     }
   } catch (e) {
-    textEl.textContent = '';
-    if (el) el.style.display = 'none';
+    el.style.display = 'none';
   }
 }
 
