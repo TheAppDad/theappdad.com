@@ -290,6 +290,18 @@ main {
   outline: none;
 }
 
+.period-date {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-left: auto;
+}
+
+.period-date .analytics-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
 @media (max-width: 768px) {
   .numbers-period-selector {
     gap: 8px;
