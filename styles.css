@@ -181,6 +181,17 @@ main {
   font-size: 1rem;
 }
 
+.app-rating {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: 0 0 12px;
+}
+
+.app-rating-stars {
+  color: #e6c200;
+  letter-spacing: 0.05em;
+}
+
 .app-description {
   color: var(--color-text-muted);
   margin: 0 0 16px;
