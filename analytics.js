@@ -169,23 +169,21 @@ async function loadAnalytics() {
 }
 
 async function loadAppRating() {
-  const el = document.getElementById('app-rating');
   const dataEl = document.getElementById('app-rating-data');
-  if (!el || !dataEl) return;
+  if (!dataEl) return;
   try {
-    const res = await fetch('https://itunes.apple.com/lookup?id=6757462559&country=gb');
+    const res = await fetch('/api/rating');
     const data = await res.json();
-    if (data.results && data.results[0]) {
-      const r = data.results[0];
-      const rating = r.averageUserRating;
-      const count = r.userRatingCount || 0;
+    if (res.ok && data.rating !== undefined) {
+      const rating = data.rating;
+      const count = data.count || 0;
       const stars = '★'.repeat(Math.round(rating)) + '☆'.repeat(5 - Math.round(rating));
-      dataEl.innerHTML = '<span class="app-rating-stars">' + stars + '</span> ' + (count > 0 ? rating.toFixed(1) + ' (' + count + ' rating' + (count === 1 ? '' : 's') + ')' : 'No ratings yet');
+      dataEl.innerHTML = '<span class="app-rating-stars">' + stars + '</span> ' + (count > 0 ? rating.toFixed(1) + ' (' + count + ' rating' + (count === 1 ? '' : 's') + ')' : '—');
     } else {
       dataEl.textContent = '—';
     }
   } catch (e) {
-    el.style.display = 'none';
+    dataEl.textContent = '—';
   }
 }
 
