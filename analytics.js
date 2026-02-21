@@ -105,10 +105,40 @@ function rowToData(headers, values) {
   return data;
 }
 
-function applyStats(data) {
+function parseStatNumber(val, key) {
+  if (val === undefined || val === null || val === '') return NaN;
+  const s = String(val).trim();
+  const num = parseFloat(s.replace(/[$,%]/g, ''));
+  return isNaN(num) ? NaN : num;
+}
+
+function computePercentChange(current, previous) {
+  const curr = parseFloat(current);
+  const prev = parseFloat(previous);
+  if (isNaN(curr) || isNaN(prev) || prev === 0) return null;
+  const pct = ((curr - prev) / prev) * 100;
+  if (Math.abs(pct) < 0.1) return '0%';
+  const sign = pct >= 0 ? '+' : '';
+  return sign + pct.toFixed(1) + '%';
+}
+
+const TREND_METRICS = ['impressions', 'product_page_views', 'conversion_rate', 'downloads', 'proceeds', 'proceeds_per_user', 'sessions_per_device', 'crashes'];
+
+function applyStats(data, changes) {
   document.querySelectorAll('[data-stat]').forEach(el => {
     const key = el.getAttribute('data-stat');
     if (data[key] !== undefined) el.textContent = data[key];
+    if (changes && TREND_METRICS.includes(key)) {
+      const cell = el.closest('.analytics-cell');
+      const changeEl = cell && cell.querySelector('.analytics-change');
+      if (changeEl) {
+        const ch = changes[key];
+        changeEl.textContent = ch != null ? ch : '—';
+        changeEl.classList.remove('analytics-change-up', 'analytics-change-down');
+        if (ch && ch.startsWith('+')) changeEl.classList.add('analytics-change-up');
+        else if (ch && ch.startsWith('-')) changeEl.classList.add('analytics-change-down');
+      }
+    }
   });
 }
 
@@ -117,9 +147,23 @@ function setPeriodSelect(period) {
   if (select) select.value = period;
 }
 
+function computeChanges(currentRow, previousRow) {
+  const changes = {};
+  if (!currentRow || !previousRow) return changes;
+  for (const key of TREND_METRICS) {
+    const curr = parseStatNumber(currentRow[key], key);
+    const prev = parseStatNumber(previousRow[key], key);
+    const ch = computePercentChange(curr, prev);
+    if (ch != null) changes[key] = ch;
+  }
+  return changes;
+}
+
 async function loadAnalytics() {
+  let snapshots = [];
   let dataByPeriod = {};
   let fallbackData = { ...FALLBACK };
+  let changes = {};
 
   const urls = ['/stats.csv', 'stats.csv', './stats.csv'];
   let loaded = false;
@@ -132,16 +176,26 @@ async function loadAnalytics() {
         const lines = text.trim().split('\n').filter(l => l.length > 0);
         if (lines.length >= 2) {
           const headers = parseCSVLine(lines[0]);
+          const lastUpdatedIdx = headers.findIndex(h => h.trim().toLowerCase().replace(/\s+/g, '_') === 'last_updated');
           const periodIdx = headers.findIndex(h => h.trim().toLowerCase() === 'period');
 
           for (let i = 1; i < lines.length; i++) {
             const values = parseCSVLine(lines[i]);
             const row = rowToData(headers, values);
             const period = (periodIdx >= 0 && values[periodIdx]) ? String(values[periodIdx]).trim().toLowerCase() : 'lifetime';
-            dataByPeriod[period] = row;
+            const date = lastUpdatedIdx >= 0 && row.last_updated ? parseDate(row.last_updated) : null;
+            snapshots.push({ data: row, period, date });
           }
 
-          fallbackData = dataByPeriod['lifetime'] || (lines.length >= 2 ? rowToData(headers, parseCSVLine(lines[lines.length - 1])) : FALLBACK);
+          snapshots.sort((a, b) => (b.date && a.date ? b.date.getTime() - a.date.getTime() : 0));
+          const current = snapshots[0] && snapshots[0].data;
+          const previous = snapshots[1] && snapshots[1].data;
+          if (current) {
+            fallbackData = current;
+            dataByPeriod['lifetime'] = current;
+            dataByPeriod['7d'] = dataByPeriod['30d'] = dataByPeriod['90d'] = dataByPeriod['last_week'] = dataByPeriod['last_month'] = dataByPeriod['ytd'] = current;
+            changes = computeChanges(current, previous);
+          }
           loaded = true;
           break;
         }
@@ -161,7 +215,7 @@ async function loadAnalytics() {
     if (data.last_updated) {
       data.date_range = computeDateRange(data.last_updated, period);
     }
-    applyStats(data);
+    applyStats(data, changes);
     setPeriodSelect(period);
     var dateEl = document.getElementById('stats-date-range');
     if (dateEl && data.date_range) dateEl.textContent = data.date_range;

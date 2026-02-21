@@ -374,6 +374,15 @@ main {
   margin-left: 4px;
 }
 
+.analytics-change-up {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.analytics-change-down {
+  color: #c44;
+}
+
 .analytics-value {
   font-size: 1.75rem;
   font-weight: 700;
