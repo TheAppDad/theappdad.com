@@ -144,6 +144,10 @@ main {
   overflow: hidden;
 }
 
+.app-card + .app-card {
+  margin-top: 24px;
+}
+
 .app-card-inner {
   display: flex;
   flex-wrap: wrap;
@@ -238,6 +242,24 @@ main {
 
 .app-legal-links a:hover {
   text-decoration: underline;
+}
+
+.app-subheading {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 24px 0 10px;
+  color: var(--color-text);
+}
+
+.app-subheading:first-of-type {
+  margin-top: 8px;
+}
+
+.app-disclaimer {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 0 0 20px;
+  line-height: 1.55;
 }
 
 /* The reality — App Store Connect style */
