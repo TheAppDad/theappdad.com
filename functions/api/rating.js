@@ -3,11 +3,13 @@
  * Avoids CORS by fetching server-side. Route: /api/rating
  */
 
-const APP_ID = '6757462559';
-const ITUNES_URL = `https://itunes.apple.com/lookup?id=${APP_ID}&country=gb`;
+const DEFAULT_APP_ID = '6757462559';
 
 export async function onRequestGet(context) {
   try {
+    const url = new URL(context.request.url);
+    const id = url.searchParams.get('id') || DEFAULT_APP_ID;
+    const ITUNES_URL = `https://itunes.apple.com/lookup?id=${id}&country=gb`;
     const res = await fetch(ITUNES_URL);
     const data = await res.json();
     const app = data.results && data.results[0];

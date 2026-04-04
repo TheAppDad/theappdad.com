@@ -262,6 +262,39 @@ main {
   line-height: 1.55;
 }
 
+.app-review-quote {
+  margin: 0 0 20px;
+  padding: 0 0 0 14px;
+  border-left: 3px solid var(--color-accent);
+}
+
+.app-review-quote blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+.app-review-quote p {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.app-review-quote figcaption {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.app-review-quote figcaption a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.app-review-quote figcaption a:hover {
+  text-decoration: underline;
+}
+
 /* The reality — App Store Connect style */
 .numbers-section {
   padding: 48px 0;

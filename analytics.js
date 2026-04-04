@@ -230,10 +230,12 @@ async function loadAnalytics() {
 }
 
 const RATING_FALLBACK = { rating: 5, count: 3 };
-const APP_STORE_ID = '6757462559';
+const CAMREF_RATING_FALLBACK = { rating: 5, count: 1 };
+const APP_STORE_ID_CHOSEN = '6757462559';
+const APP_STORE_ID_CAMREF = '6761225473';
 
-async function loadAppRating() {
-  const dataEl = document.getElementById('app-rating-data');
+async function loadAppRatingFor(elementId, appId, fallback) {
+  const dataEl = document.getElementById(elementId);
   if (!dataEl) return;
 
   function showRating(rating, count) {
@@ -242,13 +244,13 @@ async function loadAppRating() {
   }
 
   function useFallback() {
-    showRating(RATING_FALLBACK.rating, RATING_FALLBACK.count);
+    showRating(fallback.rating, fallback.count);
   }
 
   try {
     const ctrl = new AbortController();
     const timeout = setTimeout(() => ctrl.abort(), 5000);
-    const res = await fetch('/api/rating', { signal: ctrl.signal });
+    const res = await fetch('/api/rating?id=' + encodeURIComponent(appId), { signal: ctrl.signal });
     clearTimeout(timeout);
     var data;
     try {
@@ -266,16 +268,17 @@ async function loadAppRating() {
   }
 
   try {
+    const scriptId = 'itunes-script-' + appId;
     const jsonp = await new Promise(function(resolve, reject) {
-      const cb = 'itunes_' + Date.now();
+      const cb = 'itunes_' + appId + '_' + Date.now();
       window[cb] = function(obj) {
         delete window[cb];
-        document.getElementById('itunes-script')?.remove();
+        document.getElementById(scriptId)?.remove();
         resolve(obj && obj.results && obj.results[0] ? obj.results[0] : null);
       };
       const s = document.createElement('script');
-      s.id = 'itunes-script';
-      s.src = 'https://itunes.apple.com/lookup?id=' + APP_STORE_ID + '&country=gb&callback=' + cb;
+      s.id = scriptId;
+      s.src = 'https://itunes.apple.com/lookup?id=' + appId + '&country=gb&callback=' + cb;
       s.onerror = function() {
         delete window[cb];
         reject(new Error('JSONP failed'));
@@ -290,12 +293,22 @@ async function loadAppRating() {
   useFallback();
 }
 
+function loadAppRating() {
+  loadAppRatingFor('app-rating-data', APP_STORE_ID_CHOSEN, RATING_FALLBACK);
+}
+
+function loadCamRefRating() {
+  loadAppRatingFor('camref-rating-data', APP_STORE_ID_CAMREF, CAMREF_RATING_FALLBACK);
+}
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', function() {
     loadAnalytics();
     loadAppRating();
+    loadCamRefRating();
   });
 } else {
   loadAnalytics();
   loadAppRating();
+  loadCamRefRating();
 }
