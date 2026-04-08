@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --community-bg: #121211;
+  --community-surface: #1c1c1a;
+  --community-border: #2e2e2a;
+  --community-text: #f5f4f0;
+  --community-muted: #9c9890;
+  --accent: #4a7c59;
+  --accent-hover: #3d6a4a;
+}
+
+body {
+  @apply bg-community-bg text-community-text antialiased;
+}
+
+/* Fallback shell for /community (and similar) if Tailwind utilities fail to attach */
+.community-shell {
+  min-height: 100vh;
+  background-color: #121211;
+  color: #f5f4f0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.community-shell a {
+  color: #4a7c59;
+}
+
+.community-shell a:hover {
+  text-decoration: underline;
+}
+
+/* Filled primary links: shell default link color beats Tailwind text-white (specificity) */
+.community-shell a.bg-accent {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.community-shell a.bg-accent:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.community-shell header {
+  border-bottom: 1px solid #2e2e2a;
+  background-color: rgba(28, 28, 26, 0.92);
+}
+
+.community-shell .community-stat {
+  border-radius: 0.75rem;
+  border: 1px solid #2e2e2a;
+  background-color: #1c1c1a;
+  padding: 1.25rem;
+}
+
+.community-shell .community-stat .label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9c9890;
+  margin-bottom: 0.25rem;
+}
+
+.community-shell .community-stat .value {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #f5f4f0;
+}
+
+.community-shell .community-stat .hint {
+  font-size: 0.75rem;
+  color: #9c9890;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+.community-shell .community-callout {
+  border-radius: 0.75rem;
+  border: 1px dashed #2e2e2a;
+  padding: 1.5rem;
+  max-width: 42rem;
+}
+
+.community-shell .text-muted {
+  color: #9c9890;
+}
+
+.community-shell .text-accent {
+  color: #4a7c59;
+}
+
+.community-shell h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #f5f4f0;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+  .community-shell h1 {
+    font-size: 2.25rem;
+  }
+}
+
+@keyframes community-ticker-roll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+.community-ticker-track {
+  animation-name: community-ticker-roll;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .community-ticker-track {
+    animation: none;
+    transform: translateY(0);
+  }
+}
+
+/* Focus rings match main site accent */
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-accent;
+}

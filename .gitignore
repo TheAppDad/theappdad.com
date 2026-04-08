@@ -1,2 +1,9 @@
 .DS_Store
 *.log
+
+# App Dads community (Next.js)
+community/node_modules
+community/.next
+community/.env
+community/.env.local
+community/tsconfig.tsbuildinfo
