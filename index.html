@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="styles.css?v=12">
   <style>
     .hero-logo { width: 160px !important; height: 160px !important; max-width: 160px !important; }
   </style>
@@ -120,7 +120,7 @@
 
     <section id="numbers" class="numbers-section">
       <h2 class="numbers-title">The reality</h2>
-      <p class="numbers-intro">Nobody talks about how hard this is. Designing something people actually want, getting it through App Review, and then… actually finding your first users. Here's where I'm at with my app developing journey—no sugar-coating.</p>
+      <p class="numbers-intro">Nobody talks about how hard this is. Designing something people actually want, getting it through App Review, and then… actually finding your first users. Here’s a combined view of App Store Connect numbers across my apps—no sugar-coating.</p>
       <div class="numbers-grey-wrap">
       <div class="numbers-period-selector">
         <label for="stats-period" class="period-label">View stats for</label>
@@ -133,54 +133,71 @@
           <option value="ytd">Year to date</option>
           <option value="lifetime" selected>Lifetime</option>
         </select>
-        <span class="period-date"><span id="stats-date-range" data-stat="date_range">10 Feb – 16 Feb 2026</span></span>
+        <span class="period-date"><span id="stats-date-range" data-stat="date_range">10 Feb – 10 Apr 2026</span></span>
       </div>
-      <table class="analytics-table" role="presentation">
-        <colgroup><col><col><col><col></colgroup>
+      <div class="analytics-matrix-wrap stats-matrix" id="stats-matrix" data-apps="multi">
+      <table class="analytics-matrix">
+        <thead>
+          <tr>
+            <th scope="col" class="analytics-matrix-corner"><span class="visually-hidden">Metric</span></th>
+            <th scope="col" class="analytics-matrix-app stats-per-app">Chosen</th>
+            <th scope="col" class="analytics-matrix-app stats-per-app">CamRef</th>
+            <th scope="col" class="analytics-matrix-app analytics-matrix-app-all">All apps</th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
-            <td class="analytics-cell">
-              <div class="analytics-label">Impressions <span class="analytics-change">0%</span></div>
-              <div class="analytics-value" data-stat="impressions">270</div>
-            </td>
-            <td class="analytics-cell">
-              <div class="analytics-label">Product Page Views <span class="analytics-change">0%</span></div>
-              <div class="analytics-value" data-stat="product_page_views">125</div>
-            </td>
-            <td class="analytics-cell">
-              <div class="analytics-label">Conversion Rate <span class="analytics-change">0%</span></div>
-              <div class="analytics-value" data-stat="conversion_rate">21.2%</div>
-              <div class="analytics-subtitle">Daily Average</div>
-            </td>
-            <td class="analytics-cell">
-              <div class="analytics-label">Total Downloads <span class="analytics-change">0%</span></div>
-              <div class="analytics-value" data-stat="downloads">21</div>
-            </td>
+            <th scope="row" class="analytics-row-metric">Impressions</th>
+            <td class="analytics-cell"><div class="analytics-label">Impressions <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="impressions_chosen">3150</div></td>
+            <td class="analytics-cell stats-per-app"><div class="analytics-label">Impressions <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="impressions_camref">7540</div></td>
+            <td class="analytics-cell"><div class="analytics-label">Impressions <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="impressions_all">10690</div></td>
           </tr>
           <tr>
-            <td class="analytics-cell">
-              <div class="analytics-label">Proceeds <span class="analytics-change">0%</span></div>
-              <div class="analytics-value" data-stat="proceeds">$5</div>
-            </td>
-            <td class="analytics-cell">
-              <div class="analytics-label">Proceeds Per Paying User <span class="analytics-change">0%</span></div>
-              <div class="analytics-value" data-stat="proceeds_per_user">$1.67</div>
-              <div class="analytics-subtitle">Daily Average</div>
-            </td>
-            <td class="analytics-cell">
-              <div class="analytics-label">Sessions Per Active Device <span class="analytics-change">0%</span></div>
-              <div class="analytics-value" data-stat="sessions_per_device">4.38</div>
-              <div class="analytics-subtitle">Opt-in Only</div>
-            </td>
-            <td class="analytics-cell">
-              <div class="analytics-label">Crashes <span class="analytics-change">0%</span></div>
-              <div class="analytics-value" data-stat="crashes">0</div>
-              <div class="analytics-subtitle">Opt-in Only</div>
-            </td>
+            <th scope="row" class="analytics-row-metric">Product page views</th>
+            <td class="analytics-cell"><div class="analytics-label">Product page views <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="product_page_views_chosen">635</div></td>
+            <td class="analytics-cell stats-per-app"><div class="analytics-label">Product page views <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="product_page_views_camref">488</div></td>
+            <td class="analytics-cell"><div class="analytics-label">Product page views <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="product_page_views_all">1123</div></td>
+          </tr>
+          <tr>
+            <th scope="row" class="analytics-row-metric">Conversion rate</th>
+            <td class="analytics-cell"><div class="analytics-label">Conversion rate <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="conversion_rate_chosen">2.06%</div><div class="analytics-subtitle">Daily average</div></td>
+            <td class="analytics-cell stats-per-app"><div class="analytics-label">Conversion rate <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="conversion_rate_camref">2.16%</div><div class="analytics-subtitle">Daily average</div></td>
+            <td class="analytics-cell"><div class="analytics-label">Conversion rate <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="conversion_rate_all">14.78%</div><div class="analytics-subtitle">From page views</div></td>
+          </tr>
+          <tr>
+            <th scope="row" class="analytics-row-metric">Total downloads</th>
+            <td class="analytics-cell"><div class="analytics-label">Total downloads <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="downloads_chosen">48</div></td>
+            <td class="analytics-cell stats-per-app"><div class="analytics-label">Total downloads <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="downloads_camref">118</div></td>
+            <td class="analytics-cell"><div class="analytics-label">Total downloads <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="downloads_all">166</div></td>
+          </tr>
+          <tr>
+            <th scope="row" class="analytics-row-metric">Proceeds</th>
+            <td class="analytics-cell"><div class="analytics-label">Proceeds <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="proceeds_chosen">$10</div></td>
+            <td class="analytics-cell stats-per-app"><div class="analytics-label">Proceeds <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="proceeds_camref">$81</div></td>
+            <td class="analytics-cell"><div class="analytics-label">Proceeds <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="proceeds_all">$91</div></td>
+          </tr>
+          <tr>
+            <th scope="row" class="analytics-row-metric">Proceeds per paying user</th>
+            <td class="analytics-cell"><div class="analytics-label">Proceeds per paying user <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="proceeds_per_user_chosen">$1.67</div><div class="analytics-subtitle">Daily average</div></td>
+            <td class="analytics-cell stats-per-app"><div class="analytics-label">Proceeds per paying user <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="proceeds_per_user_camref">$81</div><div class="analytics-subtitle">Daily average</div></td>
+            <td class="analytics-cell"><div class="analytics-label">Proceeds per paying user <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="proceeds_per_user_all">—</div><div class="analytics-subtitle">Varies by app</div></td>
+          </tr>
+          <tr>
+            <th scope="row" class="analytics-row-metric">Sessions per active device</th>
+            <td class="analytics-cell"><div class="analytics-label">Sessions per device <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="sessions_per_device_chosen">3.15</div><div class="analytics-subtitle">Opt-in only</div></td>
+            <td class="analytics-cell stats-per-app"><div class="analytics-label">Sessions per device <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="sessions_per_device_camref">—</div><div class="analytics-subtitle">Opt-in only</div></td>
+            <td class="analytics-cell"><div class="analytics-label">Sessions per device <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="sessions_per_device_all">3.15</div><div class="analytics-subtitle">Opt-in only</div></td>
+          </tr>
+          <tr>
+            <th scope="row" class="analytics-row-metric">Crashes</th>
+            <td class="analytics-cell"><div class="analytics-label">Crashes <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="crashes_chosen">0</div><div class="analytics-subtitle">Opt-in only</div></td>
+            <td class="analytics-cell stats-per-app"><div class="analytics-label">Crashes <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="crashes_camref">0</div><div class="analytics-subtitle">Opt-in only</div></td>
+            <td class="analytics-cell"><div class="analytics-label">Crashes <span class="analytics-change">0%</span></div><div class="analytics-value" data-stat="crashes_all">0</div><div class="analytics-subtitle">Opt-in only</div></td>
           </tr>
         </tbody>
       </table>
-      <p class="numbers-meta">Released on App Store: 10 Feb 2026<br class="numbers-meta-br"> · Stats last updated: <span data-stat="last_updated">15 Feb 2026</span></p>
+      </div>
+      <p class="numbers-meta">App Store releases: Chosen 10 Feb 2026 · CamRef live (UK)<br class="numbers-meta-br"> · Stats last updated: <span data-stat="last_updated">10 Apr 2026</span></p>
       <p class="numbers-reflection">If you're thinking about building an app, I hope this helps. It's tough. It's also worth it.</p>
       </div>
     </section>
@@ -210,6 +227,6 @@
       </nav>
     </div>
   </footer>
-  <script src="analytics.js?v=6"></script>
+  <script src="analytics.js?v=7"></script>
 </body>
 </html>
