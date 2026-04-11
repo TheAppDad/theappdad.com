@@ -1022,3 +1022,113 @@ main {
   text-align: center;
   margin: 0;
 }
+
+/* App Dads landing — cooler studio palette (teal accent, slate type) */
+.app-dads-landing {
+  --ad-accent: #0d9488;
+  --ad-accent-hover: #0f766e;
+  --ad-accent-soft: rgba(13, 148, 136, 0.12);
+  --ad-accent-border: rgba(13, 148, 136, 0.38);
+  --ad-ink: #0f172a;
+  --ad-muted: #475569;
+  --ad-surface: #ffffff;
+  background: linear-gradient(165deg, #eef2f7 0%, #e4eaf3 42%, #f0f4f8 100%);
+  color: var(--ad-ink);
+}
+
+.app-dads-landing .logo {
+  color: var(--ad-ink);
+}
+
+.app-dads-landing .site-header {
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom-color: rgba(15, 23, 42, 0.07);
+}
+
+.app-dads-landing .main-nav a {
+  color: var(--ad-muted);
+}
+
+.app-dads-landing .logo:hover,
+.app-dads-landing .main-nav a:hover,
+.app-dads-landing .main-nav a.active {
+  color: var(--ad-accent);
+}
+
+.app-dads-landing .page-content h1 {
+  color: var(--ad-ink);
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.app-dads-landing .soon-badge {
+  color: var(--ad-accent);
+  border-color: var(--ad-accent-border);
+  background: var(--ad-accent-soft);
+}
+
+.app-dads-landing .soon-badge-dot {
+  background: var(--ad-accent);
+}
+
+.app-dads-landing .soon-lead,
+.app-dads-landing .soon-list li,
+.app-dads-landing .soon-footnote,
+.app-dads-landing .footer-inner p {
+  color: var(--ad-muted);
+}
+
+.app-dads-landing .soon-card {
+  background: var(--ad-surface);
+  border-color: rgba(13, 148, 136, 0.14);
+  box-shadow:
+    0 20px 50px rgba(15, 23, 42, 0.075),
+    0 0 0 1px rgba(255, 255, 255, 0.75) inset;
+}
+
+.app-dads-landing .soon-card h2 {
+  color: var(--ad-ink);
+}
+
+.app-dads-landing .soon-list li::before {
+  background: var(--ad-accent);
+  opacity: 1;
+}
+
+.app-dads-landing .soon-list strong {
+  color: var(--ad-ink);
+}
+
+.app-dads-landing .soon-footnote a {
+  color: var(--ad-accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.app-dads-landing .soon-footnote a:hover {
+  color: var(--ad-accent-hover);
+  text-decoration: underline;
+}
+
+.app-dads-landing .app-store-button {
+  background: var(--ad-accent);
+}
+
+.app-dads-landing .app-store-button:hover {
+  background: var(--ad-accent-hover);
+}
+
+.app-dads-landing .site-footer {
+  background: rgba(255, 255, 255, 0.55);
+  border-top-color: rgba(15, 23, 42, 0.08);
+}
+
+.app-dads-landing .footer-nav a {
+  color: var(--ad-muted);
+}
+
+.app-dads-landing .footer-nav a:hover {
+  color: var(--ad-accent);
+}
