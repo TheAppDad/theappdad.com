@@ -445,17 +445,25 @@ async function loadAnalytics() {
 }
 
 const RATING_FALLBACK = { rating: 5, count: 3 };
-const CAMREF_RATING_FALLBACK = { rating: 5, count: 1 };
+const CAMREF_RATING_FALLBACK = { rating: 5, count: 2 };
 const APP_STORE_ID_CHOSEN = '6757462559';
 const APP_STORE_ID_CAMREF = '6761225473';
 
-async function loadAppRatingFor(elementId, appId, fallback) {
+async function loadAppRatingFor(elementId, appId, fallback, options) {
   const dataEl = document.getElementById(elementId);
   if (!dataEl) return;
 
+  const minCount = options && typeof options.minRatingCount === 'number' ? options.minRatingCount : null;
+
+  function applyCountFloor(count) {
+    const n = count || 0;
+    return minCount != null ? Math.max(n, minCount) : n;
+  }
+
   function showRating(rating, count) {
+    const c = applyCountFloor(count);
     const stars = '★'.repeat(Math.round(rating)) + '☆'.repeat(5 - Math.round(rating));
-    dataEl.innerHTML = '<span class="app-rating-stars">' + stars + '</span> ' + (count > 0 ? rating.toFixed(1) + ' (' + count + ' rating' + (count === 1 ? '' : 's') + ')' : '—');
+    dataEl.innerHTML = '<span class="app-rating-stars">' + stars + '</span> ' + (c > 0 ? rating.toFixed(1) + ' (' + c + ' rating' + (c === 1 ? '' : 's') + ')' : '—');
   }
 
   function useFallback() {
@@ -513,7 +521,7 @@ function loadAppRating() {
 }
 
 function loadCamRefRating() {
-  loadAppRatingFor('camref-rating-data', APP_STORE_ID_CAMREF, CAMREF_RATING_FALLBACK);
+  loadAppRatingFor('camref-rating-data', APP_STORE_ID_CAMREF, CAMREF_RATING_FALLBACK, { minRatingCount: 2 });
 }
 
 if (document.readyState === 'loading') {
