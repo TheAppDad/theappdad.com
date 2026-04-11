@@ -1023,112 +1023,118 @@ main {
   margin: 0;
 }
 
-/* App Dads landing — cooler studio palette (teal accent, slate type) */
+/*
+ * App Dads coming soon — matches community dashboard tokens
+ * (keep in sync with community/src/app/globals.css + tailwind.config.ts)
+ */
 .app-dads-landing {
-  --ad-accent: #0d9488;
-  --ad-accent-hover: #0f766e;
-  --ad-accent-soft: rgba(13, 148, 136, 0.12);
-  --ad-accent-border: rgba(13, 148, 136, 0.38);
-  --ad-ink: #0f172a;
-  --ad-muted: #475569;
-  --ad-surface: #ffffff;
-  background: linear-gradient(165deg, #eef2f7 0%, #e4eaf3 42%, #f0f4f8 100%);
-  color: var(--ad-ink);
+  --community-bg: #121211;
+  --community-surface: #1c1c1a;
+  --community-border: #2e2e2a;
+  --community-text: #f5f4f0;
+  --community-muted: #9c9890;
+  --community-accent: #4a7c59;
+  --community-accent-hover: #3d6a4a;
+  --community-accent-soft: rgba(74, 124, 89, 0.14);
+  --community-accent-border: rgba(74, 124, 89, 0.45);
+  background: var(--community-bg);
+  color: var(--community-text);
+  -webkit-font-smoothing: antialiased;
 }
 
 .app-dads-landing .logo {
-  color: var(--ad-ink);
+  color: var(--community-text);
 }
 
 .app-dads-landing .site-header {
-  background: rgba(255, 255, 255, 0.86);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom-color: rgba(15, 23, 42, 0.07);
+  background: rgba(28, 28, 26, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom-color: var(--community-border);
 }
 
 .app-dads-landing .main-nav a {
-  color: var(--ad-muted);
+  color: var(--community-muted);
 }
 
 .app-dads-landing .logo:hover,
 .app-dads-landing .main-nav a:hover,
 .app-dads-landing .main-nav a.active {
-  color: var(--ad-accent);
+  color: var(--community-accent);
 }
 
-.app-dads-landing .page-content h1 {
-  color: var(--ad-ink);
+.app-dads-landing .page-content h1,
+.app-dads-landing .app-dads-soon h1 {
+  color: var(--community-text);
   border-bottom: none;
   padding-bottom: 0;
 }
 
 .app-dads-landing .soon-badge {
-  color: var(--ad-accent);
-  border-color: var(--ad-accent-border);
-  background: var(--ad-accent-soft);
+  color: var(--community-accent);
+  border-color: var(--community-accent-border);
+  background: var(--community-accent-soft);
 }
 
 .app-dads-landing .soon-badge-dot {
-  background: var(--ad-accent);
+  background: var(--community-accent);
 }
 
 .app-dads-landing .soon-lead,
 .app-dads-landing .soon-list li,
 .app-dads-landing .soon-footnote,
 .app-dads-landing .footer-inner p {
-  color: var(--ad-muted);
+  color: var(--community-muted);
 }
 
 .app-dads-landing .soon-card {
-  background: var(--ad-surface);
-  border-color: rgba(13, 148, 136, 0.14);
-  box-shadow:
-    0 20px 50px rgba(15, 23, 42, 0.075),
-    0 0 0 1px rgba(255, 255, 255, 0.75) inset;
+  background: var(--community-surface);
+  border-color: var(--community-border);
+  border-radius: 12px;
+  box-shadow: none;
 }
 
 .app-dads-landing .soon-card h2 {
-  color: var(--ad-ink);
+  color: var(--community-text);
 }
 
 .app-dads-landing .soon-list li::before {
-  background: var(--ad-accent);
-  opacity: 1;
+  background: var(--community-accent);
+  opacity: 0.9;
 }
 
 .app-dads-landing .soon-list strong {
-  color: var(--ad-ink);
+  color: var(--community-text);
 }
 
 .app-dads-landing .soon-footnote a {
-  color: var(--ad-accent);
+  color: var(--community-accent);
   text-decoration: none;
   font-weight: 600;
 }
 
 .app-dads-landing .soon-footnote a:hover {
-  color: var(--ad-accent-hover);
+  color: var(--community-accent-hover);
   text-decoration: underline;
 }
 
 .app-dads-landing .app-store-button {
-  background: var(--ad-accent);
+  background: var(--community-accent);
 }
 
 .app-dads-landing .app-store-button:hover {
-  background: var(--ad-accent-hover);
+  background: var(--community-accent-hover);
 }
 
 .app-dads-landing .site-footer {
-  background: rgba(255, 255, 255, 0.55);
-  border-top-color: rgba(15, 23, 42, 0.08);
+  background: var(--community-bg);
+  border-top-color: var(--community-border);
 }
 
 .app-dads-landing .footer-nav a {
-  color: var(--ad-muted);
+  color: var(--community-muted);
 }
 
 .app-dads-landing .footer-nav a:hover {
-  color: var(--ad-accent);
+  color: var(--community-text);
 }
