@@ -4,10 +4,13 @@ Indie app developer website for The App Dad (Andrew Webster).
 
 ## Structure
 
-- **`community/`** — **The App Dads** Next.js app (Clerk auth, dashboard shell). See [`community/README.md`](community/README.md). Deploy separately (e.g. `community.theappdad.com`); main site nav links there.
 - **`index.html`** + **`styles.css`** — Main site (hero, apps, "The reality", about)
 - **"The reality"** — Stats loaded from `stats.csv` with history and trend indicators.
 - **`chosen-legal-pages/`** — Privacy, Support, and Terms pages (deploy to [Chosen-Right-App](https://github.com/TheAppDad/Chosen-Right-App) for GitHub Pages)
+
+### The App Dads (community app)
+
+The **members / dashboard** Next.js app is **not tracked in this repo** so this project stays scoped to the public marketing site. Keep that work in a local `community/` folder (gitignored), or move it to its own repository when you are ready to deploy (e.g. `community.theappdad.com`). The main site nav already links out to that URL.
 
 ## "The reality" — Updating stats
 

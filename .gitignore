@@ -1,9 +1,5 @@
 .DS_Store
 *.log
 
-# App Dads community (Next.js)
-community/node_modules
-community/.next
-community/.env
-community/.env.local
-community/tsconfig.tsbuildinfo
+# The App Dads Next.js app — developed locally / separate repo; not part of this publishable site yet
+community/
