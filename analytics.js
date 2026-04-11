@@ -1,7 +1,8 @@
 /**
  * Loads stats from stats.csv and populates "The reality" section.
  * Multi-app: rows include an `app` column (chosen | camref). Same last_updated = one snapshot.
- * Combined "All apps" is computed in JS. Legacy CSV without `app` is treated as Chosen-only.
+ * Combined "All apps" is computed in JS. The UI shows one metric grid; user picks app + period.
+ * Legacy CSV without `app` is Chosen-only; the App selector is hidden.
  */
 
 const METRICS = [
@@ -27,7 +28,7 @@ function flatKeys() {
   return keys;
 }
 
-const TREND_METRICS = flatKeys();
+const FLAT_CHANGE_KEYS = flatKeys();
 
 const FALLBACK = buildFallbackFromLegacy({
   impressions: '270',
@@ -262,20 +263,42 @@ function buildFallbackFromLegacy(legacy) {
   return flat;
 }
 
-function applyStats(data, changes, multiApp) {
-  const root = document.getElementById('stats-matrix');
-  if (root) {
-    root.setAttribute('data-apps', multiApp ? 'multi' : 'single');
+function pickView(flat, app) {
+  const suffix = app === 'all' ? 'all' : app;
+  const out = {};
+  for (const m of METRICS) {
+    const k = m + '_' + suffix;
+    if (flat[k] !== undefined) out[m] = flat[k];
   }
+  return out;
+}
 
+function pickChanges(fullChanges, app) {
+  const suffix = app === 'all' ? 'all' : app;
+  const out = {};
+  for (const m of METRICS) {
+    const ch = fullChanges[m + '_' + suffix];
+    if (ch != null) out[m] = ch;
+  }
+  return out;
+}
+
+function updateStatSubtitles(app) {
+  const conv = document.getElementById('stats-sub-conversion');
+  const ppu = document.getElementById('stats-sub-ppu');
+  if (conv) conv.textContent = app === 'all' ? 'From page views' : 'Daily Average';
+  if (ppu) ppu.textContent = app === 'all' ? 'Varies by app' : 'Daily Average';
+}
+
+function applyStats(data, viewChanges) {
   document.querySelectorAll('[data-stat]').forEach(el => {
     const key = el.getAttribute('data-stat');
     if (data[key] !== undefined) el.textContent = data[key];
-    if (changes && TREND_METRICS.includes(key)) {
+    if (viewChanges && METRICS.includes(key)) {
       const cell = el.closest('.analytics-cell');
       const changeEl = cell && cell.querySelector('.analytics-change');
       if (changeEl) {
-        const ch = changes[key];
+        const ch = viewChanges[key];
         changeEl.textContent = ch != null ? ch : '—';
         changeEl.classList.remove('analytics-change-up', 'analytics-change-down');
         if (ch && ch.startsWith('+')) changeEl.classList.add('analytics-change-up');
@@ -285,15 +308,10 @@ function applyStats(data, changes, multiApp) {
   });
 }
 
-function setPeriodSelect(period) {
-  const select = document.getElementById('stats-period');
-  if (select) select.value = period;
-}
-
 function computeChanges(currentFlat, previousFlat) {
   const changes = {};
   if (!currentFlat || !previousFlat) return changes;
-  for (const key of TREND_METRICS) {
+  for (const key of FLAT_CHANGE_KEYS) {
     const curr = parseStatNumber(currentFlat[key], key);
     const prev = parseStatNumber(previousFlat[key], key);
     const ch = computePercentChange(curr, prev);
@@ -397,23 +415,33 @@ async function loadAnalytics() {
     multiApp = true;
   }
 
-  function showPeriod(period) {
-    let data = { ...currentFlat };
-    if (data.last_updated) {
-      data.date_range = computeDateRange(data.last_updated, period);
+  const appWrap = document.getElementById('stats-app-wrap');
+  if (appWrap) {
+    appWrap.hidden = !multiApp;
+  }
+
+  function showView() {
+    const periodEl = document.getElementById('stats-period');
+    const appEl = document.getElementById('stats-app');
+    const period = periodEl ? periodEl.value : 'lifetime';
+    const app = multiApp && appEl ? appEl.value : 'all';
+    const viewData = pickView(currentFlat, app);
+    if (currentFlat.last_updated) {
+      viewData.last_updated = currentFlat.last_updated;
+      viewData.date_range = computeDateRange(currentFlat.last_updated, period);
     }
-    applyStats(data, changes, multiApp);
-    setPeriodSelect(period);
+    applyStats(viewData, pickChanges(changes, app));
+    updateStatSubtitles(app);
     const dateEl = document.getElementById('stats-date-range');
-    if (dateEl && data.date_range) dateEl.textContent = data.date_range;
+    if (dateEl && viewData.date_range) dateEl.textContent = viewData.date_range;
   }
 
-  const select = document.getElementById('stats-period');
-  if (select) {
-    select.addEventListener('change', function() { showPeriod(this.value); });
-  }
+  const periodSelect = document.getElementById('stats-period');
+  const appSelect = document.getElementById('stats-app');
+  if (periodSelect) periodSelect.addEventListener('change', showView);
+  if (appSelect) appSelect.addEventListener('change', showView);
 
-  showPeriod(select ? select.value : 'lifetime');
+  showView();
 }
 
 const RATING_FALLBACK = { rating: 5, count: 3 };
