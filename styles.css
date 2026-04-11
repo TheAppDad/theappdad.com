@@ -862,3 +862,139 @@ main {
 main {
   overflow-x: hidden;
 }
+
+/* App Dads — coming soon landing */
+.app-dads-soon {
+  max-width: 640px;
+  padding-top: 48px;
+  padding-bottom: 64px;
+}
+
+.soon-hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.soon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 20px;
+  padding: 8px 14px;
+  border: 1px solid rgba(74, 124, 89, 0.35);
+  border-radius: 999px;
+  background: rgba(74, 124, 89, 0.06);
+}
+
+.soon-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  animation: soon-pulse 2s ease-in-out infinite;
+}
+
+@keyframes soon-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(0.92);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .soon-badge-dot {
+    animation: none;
+  }
+}
+
+.app-dads-soon h1 {
+  font-size: clamp(2.25rem, 6vw, 3rem);
+  letter-spacing: -0.03em;
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+
+.soon-lead {
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  margin: 0 auto;
+  max-width: 34em;
+}
+
+.soon-card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 28px 28px 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 12px 40px rgba(45, 42, 38, 0.06);
+}
+
+.soon-card h2 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 1.1rem;
+}
+
+.soon-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.soon-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 16px;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+
+.soon-list li:last-child {
+  margin-bottom: 0;
+}
+
+.soon-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0.85;
+}
+
+.soon-list strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.soon-footnote {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.soon-footnote a {
+  font-weight: 500;
+}
+
+.soon-cta {
+  text-align: center;
+  margin: 0;
+}

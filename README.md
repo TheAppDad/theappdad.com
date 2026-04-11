@@ -5,6 +5,7 @@ Indie app developer website for The App Dad (Andrew Webster).
 ## Structure
 
 - **`index.html`** + **`styles.css`** — Main site (hero, apps, "The reality", about)
+- **`app-dads/`** — “Coming soon” landing for **The App Dads** (linked from main nav)
 - **"The reality"** — Stats loaded from `stats.csv` with history and trend indicators.
 - **`chosen-legal-pages/`** — Privacy, Support, and Terms pages (deploy to [Chosen-Right-App](https://github.com/TheAppDad/Chosen-Right-App) for GitHub Pages)
 
