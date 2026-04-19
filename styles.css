@@ -94,7 +94,7 @@ main {
 
 /* Hero */
 .hero {
-  padding: 80px 0 64px;
+  padding: 48px 0 36px;
   text-align: center;
 }
 
@@ -109,7 +109,7 @@ main {
 .hero-tagline {
   font-size: 1.2rem;
   color: var(--color-text-muted);
-  margin: 0 auto 32px;
+  margin: 0 auto 24px;
   max-width: 480px;
 }
 
@@ -126,14 +126,14 @@ main {
 
 /* Apps section */
 .apps-section {
-  padding: 48px 0;
+  padding: 28px 0;
 }
 
 .apps-section h2,
 .about-section h2 {
   font-size: 1.5rem;
   font-weight: 600;
-  margin: 0 0 32px;
+  margin: 0 0 20px;
   color: var(--color-text);
 }
 
@@ -297,8 +297,8 @@ main {
 
 /* The reality — App Store Connect style */
 .numbers-section {
-  padding: 48px 0;
-  margin: 24px 0;
+  padding: 28px 0;
+  margin: 0;
 }
 
 .numbers-title,
@@ -311,7 +311,7 @@ main {
 
 .numbers-intro {
   color: var(--color-text-muted);
-  margin: 0 0 24px;
+  margin: 0 0 16px;
   max-width: 600px;
 }
 
@@ -519,7 +519,7 @@ main {
 
 /* About */
 .about-section {
-  padding: 48px 0;
+  padding: 28px 0;
 }
 
 .about-content {
@@ -700,7 +700,7 @@ main {
   }
 
   .hero {
-    padding: 48px 0 40px;
+    padding: 32px 0 24px;
   }
 
   .hero h1 {
@@ -887,254 +887,3 @@ main {
   overflow-x: hidden;
 }
 
-/* App Dads — coming soon landing */
-.app-dads-soon {
-  max-width: 640px;
-  padding-top: 48px;
-  padding-bottom: 64px;
-}
-
-.soon-hero {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.soon-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin: 0 0 20px;
-  padding: 8px 14px;
-  border: 1px solid rgba(74, 124, 89, 0.35);
-  border-radius: 999px;
-  background: rgba(74, 124, 89, 0.06);
-}
-
-.soon-badge-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  animation: soon-pulse 2s ease-in-out infinite;
-}
-
-@keyframes soon-pulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.65;
-    transform: scale(0.92);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .soon-badge-dot {
-    animation: none;
-  }
-}
-
-.app-dads-soon h1 {
-  font-size: clamp(2.25rem, 6vw, 3rem);
-  letter-spacing: -0.03em;
-  margin: 0 0 16px;
-  line-height: 1.1;
-}
-
-.soon-lead {
-  font-size: 1.15rem;
-  color: var(--color-text-muted);
-  line-height: 1.65;
-  margin: 0 auto;
-  max-width: 34em;
-}
-
-.soon-card {
-  background: #fff;
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  padding: 28px 28px 24px;
-  margin-bottom: 32px;
-  box-shadow: 0 12px 40px rgba(45, 42, 38, 0.06);
-}
-
-.soon-card h2 {
-  margin-top: 0;
-  margin-bottom: 18px;
-  font-size: 1.1rem;
-}
-
-.soon-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.soon-list li {
-  position: relative;
-  padding-left: 20px;
-  margin-bottom: 16px;
-  color: var(--color-text-muted);
-  line-height: 1.55;
-}
-
-.soon-list li:last-child {
-  margin-bottom: 0;
-}
-
-.soon-list li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  opacity: 0.85;
-}
-
-.soon-list strong {
-  color: var(--color-text);
-  font-weight: 600;
-}
-
-.soon-footnote {
-  text-align: center;
-  font-size: 0.95rem;
-  color: var(--color-text-muted);
-  margin-bottom: 28px;
-  line-height: 1.6;
-}
-
-.soon-footnote a {
-  font-weight: 500;
-}
-
-.soon-cta {
-  text-align: center;
-  margin: 0;
-}
-
-/*
- * App Dads coming soon — matches community dashboard tokens
- * (keep in sync with community/src/app/globals.css + tailwind.config.ts)
- */
-.app-dads-landing {
-  --community-bg: #121211;
-  --community-surface: #1c1c1a;
-  --community-border: #2e2e2a;
-  --community-text: #f5f4f0;
-  --community-muted: #9c9890;
-  --community-accent: #4a7c59;
-  --community-accent-hover: #3d6a4a;
-  --community-accent-soft: rgba(74, 124, 89, 0.14);
-  --community-accent-border: rgba(74, 124, 89, 0.45);
-  background: var(--community-bg);
-  color: var(--community-text);
-  -webkit-font-smoothing: antialiased;
-}
-
-.app-dads-landing .logo {
-  color: var(--community-text);
-}
-
-.app-dads-landing .site-header {
-  background: rgba(28, 28, 26, 0.88);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom-color: var(--community-border);
-}
-
-.app-dads-landing .main-nav a {
-  color: var(--community-muted);
-}
-
-.app-dads-landing .logo:hover,
-.app-dads-landing .main-nav a:hover,
-.app-dads-landing .main-nav a.active {
-  color: var(--community-accent);
-}
-
-.app-dads-landing .page-content h1,
-.app-dads-landing .app-dads-soon h1 {
-  color: var(--community-text);
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.app-dads-landing .soon-badge {
-  color: var(--community-accent);
-  border-color: var(--community-accent-border);
-  background: var(--community-accent-soft);
-}
-
-.app-dads-landing .soon-badge-dot {
-  background: var(--community-accent);
-}
-
-.app-dads-landing .soon-lead,
-.app-dads-landing .soon-list li,
-.app-dads-landing .soon-footnote,
-.app-dads-landing .footer-inner p {
-  color: var(--community-muted);
-}
-
-.app-dads-landing .soon-card {
-  background: var(--community-surface);
-  border-color: var(--community-border);
-  border-radius: 12px;
-  box-shadow: none;
-}
-
-.app-dads-landing .soon-card h2 {
-  color: var(--community-text);
-}
-
-.app-dads-landing .soon-list li::before {
-  background: var(--community-accent);
-  opacity: 0.9;
-}
-
-.app-dads-landing .soon-list strong {
-  color: var(--community-text);
-}
-
-.app-dads-landing .soon-footnote a {
-  color: var(--community-accent);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.app-dads-landing .soon-footnote a:hover {
-  color: var(--community-accent-hover);
-  text-decoration: underline;
-}
-
-.app-dads-landing .app-store-button {
-  background: var(--community-accent);
-}
-
-.app-dads-landing .app-store-button:hover {
-  background: var(--community-accent-hover);
-}
-
-.app-dads-landing .site-footer {
-  background: var(--community-bg);
-  border-top-color: var(--community-border);
-}
-
-.app-dads-landing .footer-nav a {
-  color: var(--community-muted);
-}
-
-.app-dads-landing .footer-nav a:hover {
-  color: var(--community-text);
-}
