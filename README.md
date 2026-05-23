@@ -7,6 +7,7 @@ Indie app developer website for The App Dad (Andrew Webster).
 - **`index.html`** + **`styles.css`** — Main site (hero, apps, "The reality", about)
 - **`app-dads/`** — “Coming soon” landing for **The App Dads** (linked from main nav)
 - **"The reality"** — Stats loaded from `stats.csv` with history and trend indicators.
+- **`legal/`** — Per-app Privacy, Support, and Terms HTML (e.g. CamRef, MyExpenseHub) at `theappdad.com/legal/…`
 - **`chosen-legal-pages/`** — Privacy, Support, and Terms pages (deploy to [Chosen-Right-App](https://github.com/TheAppDad/Chosen-Right-App) for GitHub Pages)
 
 ### The App Dads (community app)
